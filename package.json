@@ -13,6 +13,7 @@
     "probot-app"
   ],
   "scripts": {
+    "build": "echo no build supplied",
     "dev": "nodemon",
     "start": "probot run ./index.js",
     "lint": "standard --fix",
@@ -20,6 +21,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
+    "@chadfawcett/probot-serverless-now": "^1.0.0",
     "lodash": "^4.17.15",
     "probot": "^7.2.0",
     "probot-config": "^1.1.0"
