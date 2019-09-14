@@ -7,6 +7,7 @@ const handlers = require('./lib/handlers');
 module.exports = app => {
   // Your code here
   app.log('Yay, the app was loaded!')
+  app.log(process.env);
 
   // Get an express router to expose new HTTP endpoints
   const router = app.route('/project-manager')

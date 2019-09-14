@@ -1,0 +1,28 @@
+service: project-manager-probot 
+
+custom:
+  stage:
+  - staging
+  - production
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-west-1
+  stage: staging
+  environment: ${file(config/${opt:stage, self:provider.stage}.env.yml)}
+
+package:
+    exclude:
+        - events/**
+        - docs/**
+        - package-lock.json
+
+functions:
+  webhook:
+    handler: handler.probot
+    events:
+      - http:
+          path: /webhooks
+          method: put
+

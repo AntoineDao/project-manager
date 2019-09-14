@@ -1,0 +1,22 @@
+sudo: false
+language: node_js
+node_js:
+- 8.11.2
+notifications:
+  disabled: true
+env:
+  global:
+  - secure: amhUNpLyUYA4NQjBoITcxWmoi0W8Cq/Hz8kY8ZByPkYIxfItF0jbTuwoUI0BTyIjVEe6xQHyvESgeP88SHVhwckDywwqFz8q/xkTfsO0T8I5p8QJgQ+A6vGSr5yzpFU8fynZWKclR2RfczfQWcJPo6q7FkRXQXnjESM16yDZyVpJRb2x5+atKvM/C0Mj8LwnvGnXRxKoMojDWCkij0O/0yetIcXpiNCEhBCTsjg/WEUFyC1zLYEbjSqv4gx+YoIlRv/Ab0/dmGPJzRcIzmiGcU8LZbo4zw0bWXhM/GfCWh+p4ig5fSHbgaGfTA4VAv9la60h5pSUd3hEKBXJuEHXLDdWpb1wIW4xY4goerF1919XzbNjRqYYFyBzOhqO1AF6Aa0hAjN7sRhQQfmAs20dt01dgd+xZwVSTclPYxSD9huDxVhVdfKZTExzPZ454mnRaDeEd8sH/9rz3PuUxIqluiaPT4ucuUzz/f8J3We0B4iffhqYUtObMvQqcoSaGPuGUsYj1R/uKIgEiVlpgcHxwRZsmIHRn5M86N55wx8XpkBry6iMT/GcwmOYrTXyhwKSEMYQBrCJLIJw5oXWMs742qCpAskWw+LB2dtsyVSAfZ2QQzxIitmfPOk8o80+wE5cOBWb07hRCpuqUkKj1pKeYMEaa3SPuvmvExiFkNUGaco=
+  - secure: xxSa2eMWwJQbzYr0V45P1kxgbE2dPvSQ9muQJMzu0Vug1fUOod9xAMdMMB5njMgFlwy71n2wybWrYxPDp2PeK8RPvk6rQ2wh8cHBarC/Wz+cHprbxPqUPPtqh9xakL5AHvls+rIVvPNaz8EGgr33b1g8ML+zB90/BsJd5dVeU9P/10GST/9oQlkXEFcG8V7KG7aNJQ4T3C45RN+gDIQQ8Is78Rw7NPe/E4b8vMEMn3eKN54KV+ZLtZbiFccOgbk2f4zDUQxvSps2p9UdyOtlt24mWuQ7Jm07lShvYD0GOHdkyFX+fs3K1Bk40bYo1fNXb0d06SCnwXdAxt3FA9FBWntfnMmkAmtSO1cZmUqADr9cEO2GRnLoqJkaS/NZh0y8pYG+/M5J0Ja76KokmjooSc7AgAtzxe0hFrbY7IdUs8KbqdYVii/D5xP+9cpJZ4fUw6nh70loyHbp4kjPF/z56pm5pILLlv6/uMvCr0ElcJrtONoFrq8Lh2xnn0udVl5G65kJJ33mo0PFW54AC4AE9T7QKNEVRGfrui8AwA3VuIMou48+wc3dmduzNg7wgkvd5DrHy4gS3kPaNGn6CJHWnHZ6uLh1NmNQEiIvczYWVNoqSVRZHy+GlhwXx5Mn1Tohz8xXFLonj2+nfFEByvUgJ2F95Zoi02Clz0I9FD3sFwg=
+script:
+- npm test
+jobs:
+  include:
+  - name: test
+  - name: deploy
+    if: branch = master AND (NOT type IN (pull_request))
+    before_install:
+    - openssl aes-256-cbc -K $encrypted_490a9de53a7b_key -iv $encrypted_490a9de53a7b_iv
+    - in config/production.env.yml.enc -out config/production.env.yml -d
+    script: 
+    - sls deploy --stage production --region eu-west-1
