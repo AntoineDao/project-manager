@@ -16,7 +16,7 @@ jobs:
   - name: deploy
     if: branch = master AND (NOT type IN (pull_request))
     before_install:
-    - openssl aes-256-cbc -K $encrypted_490a9de53a7b_key -iv $encrypted_490a9de53a7b_iv
-    - in config/production.env.yml.enc -out config/production.env.yml -d
-    script: 
+    - openssl aes-256-cbc -K $encrypted_490a9de53a7b_key -iv $encrypted_490a9de53a7b_iv -in config/production.env.yml.enc -out config/production.env.yml -d
+    script:
     - sls deploy --stage production --region eu-west-1
+
