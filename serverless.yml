@@ -20,7 +20,7 @@ package:
 
 functions:
   webhook:
-    handler: handler.probot
+    handler: lib/handlers/webhook.probot
     events:
       - http:
           path: /webhooks
