@@ -1,22 +1,28 @@
 sudo: false
+
 language: node_js
+
 node_js:
 - 8.11.2
+
 notifications:
   disabled: true
+
 env:
   global:
   - secure: zzNPrNNxLJIIqWG1m6lcLtcPk/X8lxAPo/k3Z0gX0iLHD95pXf/RK5eIOrDFYadacj/7m3vtyu6/Uipd1VRdMQjJcCuEPb6V1KffQlLKk5962rBe5s/SYddrFfPdQEe9rfs8WiF6RxukY4u0f34EtgnM0Z1DFnnEEKEeIBR6jQVYWI8/Ng048dDONVUlhzfhltmFinE68JqXt9Pk1kOhgeD3yiw5nYOg4lE53YMO5y1Bm8i0A2y60ZlN87EYnXItOCRuu4eQU6rxiDByx6OGd+8fLHh5bOOr9jKmSZ9tZRobaPkeRYVn5snCDafsT3HxOPH4h/tdEekiCMhwk0TSqD5AxMQv0tBA8M7GvJreN09XteL45P3hURLfVI1BKHPugMrChvRV0/+g4ddk27Vq8BbqEFyg+hQSq8+U9OeUOL+3SCiIXDdUFxT9a+tQ1uL+tBX4ypOf0R7KM5JHT/FTn9TZZNn1CA0x+hU+OOn7uvrmEHPaztNjFyblBf+SpZd8F0XHGLolL7QmCinqB9eqxKasZba2Dh7fFYQNiRiHBWAo9v8n97Nxpe7htrIgpehcjXbknHG84JBaMY89g8h6WpyTnUzjKGKcoiDHjhBztxvcXLFyWhn7clI06AKW4TCBJTIDZFFLkc93D1gOzymhEgeDhiemMoCqDWg7OxYb4fE=
   - secure: iV9zzPFRoxKJBERGqy/cxgYVCTfm1autrvgYxOeO10eIY8snESJwrMOA1V18CG7pwPY1t993VSnMPG1M5DLPjVJET6Iap2mFxZjdEO+P2vn2EpowCq7kRqCHzzV6mMpjr9pkSyo9ApANIW7NWmUPrXy+3SbATWwNIWDF1NvtPN14L6P0+Om4r6kgnslaU9avjsesYR/P8zs37wgqkUpDTnD6AksQpQGOaDuiSLwDZZ7fjwZMXupGvQVQPh/ducOJIrsKX9AQWrusCcy9cnpifqGWqblNggVKY4lG99LZqdgCC4C7QJTgLZtd3R9KsmeeWRXBK36WWJ1Mk6jFaD7F0gXp1/ASD7DypFTFDVobJ67E8Hy/rzC6EagdoXB83TOnqfJ19KMw1u/Bxh2QWs/O6MKnAV7EbS/2HeQWXXxE4DAOpytTqNHD48sq56xSaFeWXBZxM5q8OvVmLUeRwXNgH1rUIkm7slahLc7VcNuLfZ0iOpO3kwk6syZnd6EQOJ7zIHtYIucIAhUHZpYtnmEA/2kxSZBUffm2nh8qxbQ+H+pTFCSY2nBE1J/58FS2zuFvFZpEB5NtIgivg6dNS7vB2mazb5AfNt3yR+8Xq/Ypc1WGvbsBgcFA/P70XPUL3Dt87OYGxx2PPoo5LwVNxtqu83e3OwLjF+ai669xYNnVSdk=
-script:
-- npm test
+  - secure: 53CmHlUc2Uzkaa2zXobpR018BtsrNq02Sz+mwcPdz8VSx89F2hmW9P2n7QrfzFVCF1/Z5YAAsSF8CnjyJQPkfZNR65+BNl7Qb7M2eHrI271nfaY2Lc7Ghggc5V8PMG4FpefANViOpO/kAS+9XTZm7xKdmBgZXTpbOsCzgif+R8Mpzdll/C4LyfW9FuNEPXFAcQY917973E/BV4WgBQ1zt0VO50zLrm4H5BgPBrA4T6dACUlyhn2Ge4QgMbNmJLa33fgw+Sh1w9ne8FoW6cQ2Ipggq5RslvMzMjqxudrpTNu26cbn/RD6XID9N+M/jxTGSh6OuVOlmrZAWoq6/qAlngCFAV7evf3HKnhYmVT92DAl7hfY3q8jtucaKFBKDZwe+/tv8oxACJhfSvIYRYvwjQ3nk/HWlitCo6D40ghrbDTcleEAxkryMkO1JEhMFybGYysngfqLiwFH4V/DVMiIq6vDgiYNNAr5I0IPiVSUq3IhZqutJTss9+ZAIPNTf06X7BACIjHvUBehwJe2OGr6TVR+e3PClUzWByNm6r7NdwBBHPF3Wu5adkryxzAOQriVIROnmOZSIcz0eUuOUuQUPdENa2m4093WX4bWjjRXRiZpWsezU+YQvr0Wswz6K1E2SV0OV60HcvKtSb5y51rRLBN3eykRGQHqC6aCc5DXmMs=
+
 jobs:
   include:
   - name: test
+    script:
+    - npm test
   - name: deploy
     if: branch = master AND (NOT type IN (pull_request))
     before_install:
     - openssl aes-256-cbc -K $encrypted_490a9de53a7b_key -iv $encrypted_490a9de53a7b_iv
       -in config/production.env.yml.enc -out config/production.env.yml -d
     script:
-    - sls deploy --stage production --region eu-west-1
+    - npx semantic-release

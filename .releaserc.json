@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/github",
+    "@semantic-release/npm",
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "sls deploy --stage production --region eu-west-1"
+      }
+    ]
+  ]
+}
