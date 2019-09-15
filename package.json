@@ -4,9 +4,9 @@
   "description": "A Github App that helps manage issues, pull requests and on Github project boards",
   "author": "Antoine Dao",
   "license": "ISC",
-  "repository": "https://github.com//project-manager.git",
-  "homepage": "https://github.com//project-manager",
-  "bugs": "https://github.com//project-manager/issues",
+  "repository": "https://github.com/antoinedao/project-manager.git",
+  "homepage": "https://github.com/antoinedao/project-manager",
+  "bugs": "https://github.com/antoinedao/project-manager/issues",
   "keywords": [
     "probot",
     "github",
