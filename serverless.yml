@@ -11,6 +11,8 @@ provider:
   region: eu-west-1
   stage: staging
   environment: ${file(config/${opt:stage, self:provider.stage}.env.yml)}
+  timeout: 20
+  memorySize: 512
 
 package:
     exclude:
